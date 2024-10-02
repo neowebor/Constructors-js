@@ -51,16 +51,8 @@ const car = {
 // console.log(car.deaccelerate(20)); 
 // console.log(car.deaccelerate(30));  
 
-function CarConstructor(color, model, brand, capacity, maxQuantityPassengers, speed, maxSpeed) {
-  this.color = color;
-  this.model = model;
-  this.brand = brand;
-  this.capacity = capacity;
-  this.maxQuantityPassengers = maxQuantityPassengers;
-  this.speed = speed;
-  this.maxSpeed = maxSpeed;
-
-  this.accelerate = function(kmh) {
+const carPrototypeMethods = {
+  accelerate: function(kmh) {
     if(typeof kmh !== 'number' || isNaN(kmh)) {
       return null;
     }
@@ -74,7 +66,7 @@ function CarConstructor(color, model, brand, capacity, maxQuantityPassengers, sp
     return this.speed = speedIncrease > this.maxSpeed ? this.maxSpeed : speedIncrease;
   },
 
-  this.deaccelerate = function(kmh) {
+  deaccelerate: function(kmh) {
     if(typeof kmh !== 'number' || isNaN(kmh)) {
       return null;
     }
@@ -88,9 +80,21 @@ function CarConstructor(color, model, brand, capacity, maxQuantityPassengers, sp
     return this.speed = speedReduction > 0 ? speedReduction : 0;
   },
 
-  this.stop = function() {
-    this.speed = 0;
+  stop: function() {
+    return this.speed = 0;
   }
 }
+
+function CarConstructor(color, model, brand, capacity, maxQuantityPassengers, speed, maxSpeed) {
+  this.color = color;
+  this.model = model;
+  this.brand = brand;
+  this.capacity = capacity;
+  this.maxQuantityPassengers = maxQuantityPassengers;
+  this.speed = speed;
+  this.maxSpeed = maxSpeed;
+}
+
+CarConstructor.prototype = carPrototypeMethods;
 
 const toyota = new CarConstructor('Green', 'Toyota Supra', 'Toyota', 6, 4, 60, 240);
