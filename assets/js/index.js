@@ -11,11 +11,11 @@ const car = {
 
   accelerate: function(kmh) {
     if(typeof kmh !== 'number' || isNaN(kmh)) {
-      return null;
+      throw new TypeError('kmh must be a number');
     }
 
     if (kmh < 0) {
-      return this.deaccelerate(-kmh) + ' (Так як ви записали негативне число, то напевно хотіли зупинитись, а не розігнатись. Спрацював інший метод.)'
+      throw new RangeError('kmh must not be negative');
     }
 
     let speedIncrease = kmh + this.speed;
@@ -25,11 +25,11 @@ const car = {
 
   deaccelerate: function(kmh) {
     if(typeof kmh !== 'number' || isNaN(kmh)) {
-      return null;
+      throw new TypeError('kmh must be a number');
     }
 
     if (kmh < 0) {
-      return this.accelerate(-kmh) + ' (Так як ви записали негативне число, то напевно хотіли розігнатись, а не зупинитись. Спрацював інший метод.)'
+      throw new RangeError('kmh must not be negative');
     }
 
     let speedReduction = this.speed - kmh;
@@ -42,23 +42,15 @@ const car = {
   },
 }
 
-// console.log(car.accelerate(100));
-// console.log(car.accelerate(-50));
-// console.log(car.accelerate(150)); 
-
-
-// console.log(car.deaccelerate(-50));
-// console.log(car.deaccelerate(20)); 
-// console.log(car.deaccelerate(30));  
 
 const carPrototypeMethods = {
   accelerate: function(kmh) {
     if(typeof kmh !== 'number' || isNaN(kmh)) {
-      return null;
+      throw new TypeError('kmh must be a number');
     }
 
     if (kmh < 0) {
-      return this.deaccelerate(-kmh) + ' (Так як ви записали негативне число, то напевно хотіли зупинитись, а не розігнатись. Спрацював інший метод.)'
+      throw new RangeError('kmh must not be negative');
     }
 
     let speedIncrease = kmh + this.speed;
@@ -68,11 +60,11 @@ const carPrototypeMethods = {
 
   deaccelerate: function(kmh) {
     if(typeof kmh !== 'number' || isNaN(kmh)) {
-      return null;
+      throw new TypeError('kmh must be a number');
     }
 
     if (kmh < 0) {
-      return this.accelerate(-kmh) + ' (Так як ви записали негативне число, то напевно хотіли розігнатись, а не зупинитись. Спрацював інший метод.)'
+      throw new RangeError('kmh must not be negative');
     }
 
     let speedReduction = this.speed - kmh;
@@ -85,16 +77,16 @@ const carPrototypeMethods = {
   }
 }
 
-function CarConstructor(color, model, brand, capacity, maxQuantityPassengers, speed, maxSpeed) {
+function Car(color, model, brand, capacity, maxQuantityPassengers, maxSpeed) {
   this.color = color;
   this.model = model;
   this.brand = brand;
   this.capacity = capacity;
   this.maxQuantityPassengers = maxQuantityPassengers;
-  this.speed = speed;
+  this.speed = 0;
   this.maxSpeed = maxSpeed;
 }
 
-CarConstructor.prototype = carPrototypeMethods;
+Car.prototype = carPrototypeMethods;
 
-const toyota = new CarConstructor('Green', 'Toyota Supra', 'Toyota', 6, 4, 60, 240);
+const toyota = new Car('Green', 'Toyota Supra', 'Toyota', 6, 4, 60, 240);
